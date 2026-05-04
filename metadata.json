@@ -1,0 +1,6 @@
+{
+  "name": "CélulaReport",
+  "description": "Aplicativo para relatórios de presença de célula e rede.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
