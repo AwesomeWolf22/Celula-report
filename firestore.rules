@@ -62,36 +62,26 @@ service cloud.firestore {
       allow delete: if false; // Protect accounts from accidental deletion via client
     }
     
-    match /{path=**}/cells/{cellId} {
-      allow read: if true;
+    // Shared Data (Universal access for all signed-in users)
+    
+    match /cells/{cellId} {
+      allow read, write: if isSignedIn();
     }
 
-    match /{path=**}/pastorNetworks/{networkId} {
-      allow read: if true;
+    match /pastorNetworks/{networkId} {
+      allow read, write: if isSignedIn();
     }
 
-    match /{path=**}/disciplerNetworks/{networkId} {
-      allow read: if true;
+    match /disciplerNetworks/{networkId} {
+      allow read, write: if isSignedIn();
     }
 
-    match /users/{userId}/pastorNetworks/{networkId} {
-      allow read, write: if isOwner(userId);
-    }
-
-    match /users/{userId}/disciplerNetworks/{networkId} {
-      allow read, write: if isOwner(userId);
-    }
-
-    match /users/{userId}/cells/{cellId} {
-      allow read, write: if isOwner(userId);
+    match /members/{memberId} {
+      allow read, write: if isSignedIn();
     }
     
-    match /users/{userId}/members/{memberId} {
-      allow read, write: if isOwner(userId);
-    }
-    
-    match /users/{userId}/meetings/{meetingId} {
-      allow read, write: if isOwner(userId);
+    match /meetings/{meetingId} {
+      allow read, write: if isSignedIn();
     }
   }
 }

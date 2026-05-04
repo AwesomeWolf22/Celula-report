@@ -118,23 +118,23 @@ function MainApp() {
       return;
     }
 
-    const unsubCells = onSnapshot(collection(db, `users/${user.uid}/cells`), (snap) => {
+    const unsubCells = onSnapshot(collection(db, "cells"), (snap) => {
       setCells(snap.docs.map(doc => doc.data() as Cell));
     });
 
-    const unsubMembers = onSnapshot(collection(db, `users/${user.uid}/members`), (snap) => {
+    const unsubMembers = onSnapshot(collection(db, "members"), (snap) => {
       setMembers(snap.docs.map(doc => doc.data() as Member));
     });
 
-    const unsubMeetings = onSnapshot(collection(db, `users/${user.uid}/meetings`), (snap) => {
+    const unsubMeetings = onSnapshot(collection(db, "meetings"), (snap) => {
       setMeetings(snap.docs.map(doc => doc.data() as Meeting));
     });
 
-    const unsubPastors = onSnapshot(collection(db, `users/${user.uid}/pastorNetworks`), (snap) => {
+    const unsubPastors = onSnapshot(collection(db, "pastorNetworks"), (snap) => {
       setPastorNetworks(snap.docs.map(doc => doc.data() as PastorNetwork));
     });
 
-    const unsubDisciplers = onSnapshot(collection(db, `users/${user.uid}/disciplerNetworks`), (snap) => {
+    const unsubDisciplers = onSnapshot(collection(db, "disciplerNetworks"), (snap) => {
       setDisciplerNetworks(snap.docs.map(doc => doc.data() as DisciplerNetwork));
     });
 
@@ -385,7 +385,7 @@ function MainApp() {
           disciplerNetworks={disciplerNetworks}
           onAddCell={(cell) => {
             if (!user) return;
-            setDoc(doc(db, `users/${user.uid}/cells`, cell.id), cell);
+            setDoc(doc(db, "cells", cell.id), cell);
             if (profile) {
               const leaderAsMember: Member = {
                 id: `leader-${Date.now()}`,
@@ -404,21 +404,21 @@ function MainApp() {
                 foto: profile.photoURL || '',
                 createdAt: new Date().toISOString()
               };
-              setDoc(doc(db, `users/${user.uid}/members`, leaderAsMember.id), leaderAsMember);
+              setDoc(doc(db, "members", leaderAsMember.id), leaderAsMember);
             }
           }} 
-          onEditCell={(updatedCell) => { if(user) setDoc(doc(db, `users/${user.uid}/cells`, updatedCell.id), updatedCell); }}
-          onAddMember={(member) => { if(user) setDoc(doc(db, `users/${user.uid}/members`, member.id), member); }}
-          onEditMember={(member) => { if(user) setDoc(doc(db, `users/${user.uid}/members`, member.id), member); }}
+          onEditCell={(updatedCell) => { if(user) setDoc(doc(db, "cells", updatedCell.id), updatedCell); }}
+          onAddMember={(member) => { if(user) setDoc(doc(db, "members", member.id), member); }}
+          onEditMember={(member) => { if(user) setDoc(doc(db, "members", member.id), member); }}
           onDeleteMember={(memberId, deleteAll) => {
             if (!user) return;
-            deleteDoc(doc(db, `users/${user.uid}/members`, memberId));
+            deleteDoc(doc(db, "members", memberId));
             if (deleteAll) {
               // Also remove from all meetings
               meetings.forEach(meeting => {
                 const updatedAttendance = meeting.attendance.filter(a => a.memberId !== memberId);
                 if (updatedAttendance.length !== meeting.attendance.length) {
-                  setDoc(doc(db, `users/${user.uid}/meetings`, meeting.id), {
+                  setDoc(doc(db, "meetings", meeting.id), {
                     ...meeting,
                     attendance: updatedAttendance
                   });
@@ -426,10 +426,10 @@ function MainApp() {
               });
             }
           }}
-          onAddMeeting={(meeting) => { if(user) setDoc(doc(db, `users/${user.uid}/meetings`, meeting.id), meeting); }}
-          onEditMeeting={(meeting) => { if(user) setDoc(doc(db, `users/${user.uid}/meetings`, meeting.id), meeting); }}
-          onAddPastor={(n) => { if(user) setDoc(doc(db, `users/${user.uid}/pastorNetworks`, n.id), n); }}
-          onAddDiscipler={(n) => { if(user) setDoc(doc(db, `users/${user.uid}/disciplerNetworks`, n.id), n); }}
+          onAddMeeting={(meeting) => { if(user) setDoc(doc(db, "meetings", meeting.id), meeting); }}
+          onEditMeeting={(meeting) => { if(user) setDoc(doc(db, "meetings", meeting.id), meeting); }}
+          onAddPastor={(n) => { if(user) setDoc(doc(db, "pastorNetworks", n.id), n); }}
+          onAddDiscipler={(n) => { if(user) setDoc(doc(db, "disciplerNetworks", n.id), n); }}
         />}
         {activeTab === 'settings' && <SettingsView isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />}
         {activeTab === 'profile' && <ProfileEditor />}
@@ -2369,14 +2369,14 @@ function DirectoryView() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubCells = onSnapshot(collectionGroup(db, 'cells'), (snap) => {
+    const unsubCells = onSnapshot(collection(db, 'cells'), (snap) => {
       setAllCells(snap.docs.map(doc => doc.data() as Cell));
       setLoading(false);
     });
-    const unsubDisciplers = onSnapshot(collectionGroup(db, 'disciplerNetworks'), (snap) => {
+    const unsubDisciplers = onSnapshot(collection(db, 'disciplerNetworks'), (snap) => {
       setAllDisciplerNetworks(snap.docs.map(doc => doc.data() as DisciplerNetwork));
     });
-    const unsubPastors = onSnapshot(collectionGroup(db, 'pastorNetworks'), (snap) => {
+    const unsubPastors = onSnapshot(collection(db, 'pastorNetworks'), (snap) => {
       setAllPastorNetworks(snap.docs.map(doc => doc.data() as PastorNetwork));
     });
 

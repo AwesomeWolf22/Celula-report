@@ -1,11 +1,10 @@
 {
-  "projectId": "celula-report",
-  "appId": "1:257099676216:web:7c6e55d2abd700b34884cd",
-  "apiKey": "AIzaSyAeJqNgxF8U5jmrkKlXQxUorM8Bh0-gcJ0",
-  "authDomain": "celula-report.firebaseapp.com",
-  "firestoreDatabaseId": "(default)",
-  "storageBucket": "celula-report.firebasestorage.app",
-  "messagingSenderId": "257099676216",
-  "measurementId": "G-VHHSSB7J81"
+  "projectId": "gen-lang-client-0656082691",
+  "appId": "1:384082594682:web:e115411a7b033d8f98e4c3",
+  "apiKey": "AIzaSyDsCtcG97y-lkpnfauaoR_ue5n5NQ0zI9g",
+  "authDomain": "gen-lang-client-0656082691.firebaseapp.com",
+  "firestoreDatabaseId": "ai-studio-95fdf285-dedd-49cf-a73d-396d10143f1d",
+  "storageBucket": "gen-lang-client-0656082691.firebasestorage.app",
+  "messagingSenderId": "384082594682",
+  "measurementId": ""
 }
-

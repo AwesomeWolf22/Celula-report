@@ -22,6 +22,26 @@
     "users/{userId}": {
       "schema": "User",
       "description": "Collection of users"
+    },
+    "cells/{cellId}": {
+      "schema": "Cell",
+      "description": "Shared collection of cells"
+    },
+    "members/{memberId}": {
+      "schema": "Member",
+      "description": "Shared collection of members"
+    },
+    "meetings/{meetingId}": {
+      "schema": "Meeting",
+      "description": "Shared collection of meetings"
+    },
+    "pastorNetworks/{networkId}": {
+      "schema": "PastorNetwork",
+      "description": "Shared collection of pastor networks"
+    },
+    "disciplerNetworks/{networkId}": {
+      "schema": "DisciplerNetwork",
+      "description": "Shared collection of discipler networks"
     }
   }
 }
